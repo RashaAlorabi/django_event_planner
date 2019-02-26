@@ -20,5 +20,27 @@
 </header>
 
 
+        
+ <div class="row">
+  {% for event in events %}
+  {% if request.user == event.Organizer %}
+  <div class="col-12 col-sm-6 col-md-3">
+    <div class="card my-5">
+      <img src="{{event.poster.url}}" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">{{event.Title}}</h5>
+        <p class="card-text">{{event.Date}}</p>
+        <a href="{{ event.get_absolute_url }}" class="btn btn-dark">More Info</a>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+  <a href="{% url 'event-list' %}" class="btn btn-dark">View All Events</a>
+
+</div>
+
+
+
 
 {% endblock %}

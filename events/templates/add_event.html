@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="row justify-content-center">
+	<div class="jumbotron col-8 my-5">
+		<form action="{% url 'add-event' %}" method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form | crispy }}
+			<input type="submit" value="Add Event" class="btn btn-outline-success">
+		</form>
+	</div>
+</div>
+{% endblock content %}

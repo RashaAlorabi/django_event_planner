@@ -1,27 +1,33 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="#">Django Event Planner</a>
+
+
+    <a class="navbar-brand" href="#">Event Planner</a>
+    <ul class="navbar-nav mr-auto">
+      {% if request.user.is_authenticated %}
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{request.user}} <i class="fas fa-user"></i>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'add-event' %}">Add Event <i class="fas fa-plus"></i></a>
+              <a class="dropdown-item" href="#">Events Added By Me <i class="fas fa-plus"></i></a>
+              <a class="dropdown-item" href="{% url 'logout' %}">Logout <i class="fas fa-sign-out-alt"></i></a>
+          </div>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'signup' %}">Signup <i class="fas fa-user-plus"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login <i class="fas fa-sign-in-alt"></i></a>
+        </li>
+      {% endif %}
+      
+    </ul>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        {% if request.user.is_anonymous %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'login' %}">Log In</a>
-        </li>
-        {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">{{ request.user }}</a>
-        </li>
-        {% endif %}
-      </ul>
-    </div>
   </div>
 </nav>

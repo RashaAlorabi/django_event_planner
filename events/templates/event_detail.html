@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+	<div class="col-6 my-5">
+		<div class="card bg-dark text-white">
+		  <img src="{{event.Poster.url}}" class="card-img">
+		  <div class="card-img-overlay">
+		  </div>
+		</div>
+	</div>
+	<div class="col-6 my-5">
+		<h1 class="card-title">{{event.Title}}</h1>
+	    <p class="card-text">{{event.Description}}</p>
+	    <p class="card-text"> When: {{event.Date}} - {{event.Time}}</p>
+	    <p class="card-text"> Where: {{event.Location}}</p>
+	    <p class="card-text">Organized By:{{event.Organizer}}</p>
+	    <p class="card-text"> Seats Number: {{event.Seats}}</p>
+	    <p class="card-text"> Tickets Left: {{left_ticket}}</p>
+	</div>
+	<div class="col-6 m-5">
+    {% if request.user == event.Organizer %}
+			<a href="{{ event.update_url }}" class="btn btn-outline-info btn-block">Update</a>
+	{%else%}
+		<a href=" {% url 'book-event' event.id %}" class="btn btn-outline-info btn-block">Book Event</a>
+	{% endif %}
+	
+	</div>
+</div>
+
+
+{% endblock content %}

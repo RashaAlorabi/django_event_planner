@@ -1,5 +1,26 @@
 from django import forms
 from django.contrib.auth.models import User
+from .models import Event , Booking
+
+class EventForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        exclude = ['Organizer']
+
+        widgets = {
+            'Date': forms.DateInput(attrs={'type': 'date'}),
+            'Time': forms.TimeInput(attrs={'type':'time'}),
+            'Seats':forms.NumberInput(attrs={'type': 'number'}),                  
+        }
+class BookingForm(forms.ModelForm):
+    class Meta:
+        model = Booking
+        exclude = ['guest','event',]
+
+        widgets = {
+            'seats': forms.NumberInput(attrs={'type': 'number'}),                  
+        }        
+
 
 class UserSignup(forms.ModelForm):
     class Meta:

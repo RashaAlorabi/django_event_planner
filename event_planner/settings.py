@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -41,8 +42,15 @@ INSTALLED_APPS = [
     'events',
 
     'crispy_forms',
-]
+    'rest_framework',
 
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+
+    # 'allauth.socialaccount.providers.google',
+]
+SITE_ID = 1
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
