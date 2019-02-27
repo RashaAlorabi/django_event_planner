@@ -3,37 +3,77 @@
 {% block content %}
 
 
+<a href="{% url 'add-event' %}" class="btn btn-outline-info btn-block">Create Event</a>
+
+<div> Events I Organized:</div>
 <div class="row">
  <table class="table my-5">
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
       <th scope="col">Title</th>
-      <th scope="col">Date/Time</th>
-      <th scope="col">More Info</th>
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
+      <th scope="col">Location</th>
+      <th scope="col">Capacity</th>
+      <th scope="col">Tickets Left</th>
+      <th scope="col">More</th>
     </tr>
   </thead>
   <tbody>
     {% for event in events %}
     <tr>
-        {% if request.user == event.Organizer %}
+        {% if request.user == event.organizer %}
           <th scope="row">{{event.id}}</th>
-          <td>{{event.Title}}</td>
-          <td>{{event.Date}}</td>
-          <td>{{event.Time}}</td>
-          <td><a href="{{ event.get_absolute_url }}">More Info</a>
+          <td>{{event.title}}</td>
+          <td>{{event.date}}</td>
+          <td>{{event.time}}</td>
+          <td>{{event.location}}</td>
+          <td>{{event.capacity}}</td>
+          <td>{{event.get_left_seats}}</td>
+          <td><a href="{{event.get_absolute_url }}">More</a>
         </td>
         {%endif%}
         </tr>
       {%endfor%}   
   </tbody>
 </table>
-<a href="{% url 'add-event' %}" class="btn btn-outline-info btn-block">Create Event</a>
+
+<div> Events I Attended:</div>
+ <table class="table my-5">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
+      <th scope="col">Location</th>
+      <th scope="col">Tickets</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book_item in booking_objs %}
+    <tr>
+       
+          <th scope="row">{{book_item.event.id}}</th>
+          <td>{{book_item.event.title}}</td>
+          <td>{{book_item.event.date}}</td>
+          <td>{{book_item.event.time}}</td>
+          <td>{{book_item.event.location}}</td>
+          <td>{{book_item.seats}}</td>
+          <td></td>
+          <td><a href="{{ event.get_absolute_url }}">More</a>
+        </td>
+
+        </tr>
+
+      {%endfor%}   
+  </tbody>
+</table>
 
 </div>
 
 
 {% endblock content %}
-
 
 

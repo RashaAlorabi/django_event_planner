@@ -9,7 +9,7 @@
       {% if request.user.is_anonymous %}
         <a href="{% url 'signup' %}" class="btn btn-primary btn-xl rounded-pill mt-5">Sign up to find events!</a>
       {% else %}
-        <a href="#" class="btn btn-primary btn-xl rounded-pill mt-5">Find events!</a>
+        <a href="{% url 'event-list' %}" class="btn btn-primary btn-xl rounded-pill mt-5">Find events!</a>
       {% endif %}
     </div>
   </div>
@@ -23,7 +23,7 @@
         
  <div class="row">
   {% for event in events %}
-  {% if request.user == event.Organizer %}
+  {% if request.user == event.organizer %}
   <div class="col-12 col-sm-6 col-md-3">
     <div class="card my-5">
       <img src="{{event.poster.url}}" class="card-img-top">

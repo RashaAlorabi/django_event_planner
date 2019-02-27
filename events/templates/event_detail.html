@@ -5,29 +5,59 @@
 <div class="row justify-content-center">
 	<div class="col-6 my-5">
 		<div class="card bg-dark text-white">
-		  <img src="{{event.Poster.url}}" class="card-img">
+		  <img src="{{event.poster.url}}" class="card-img">
 		  <div class="card-img-overlay">
 		  </div>
 		</div>
 	</div>
 	<div class="col-6 my-5">
-		<h1 class="card-title">{{event.Title}}</h1>
-	    <p class="card-text">{{event.Description}}</p>
-	    <p class="card-text"> When: {{event.Date}} - {{event.Time}}</p>
-	    <p class="card-text"> Where: {{event.Location}}</p>
-	    <p class="card-text">Organized By:{{event.Organizer}}</p>
-	    <p class="card-text"> Seats Number: {{event.Seats}}</p>
+		<h1 class="card-title">{{event.title}}</h1>
+	    <p class="card-text">{{event.description}}</p>
+	    <p class="card-text"> When: {{event.date}} - {{event.time}}</p>
+	    <p class="card-text"> Where: {{event.location}}</p>
+	    <p class="card-text">Organized By:{{event.organizer}}</p>
+	    <p class="card-text"> Seats Number: {{event.capacity}}</p>
 	    <p class="card-text"> Tickets Left: {{left_ticket}}</p>
 	</div>
 	<div class="col-6 m-5">
-    {% if request.user == event.Organizer %}
+    {% if request.user == event.organizer %}
 			<a href="{{ event.update_url }}" class="btn btn-outline-info btn-block">Update</a>
-	{%else%}
-		<a href=" {% url 'book-event' event.id %}" class="btn btn-outline-info btn-block">Book Event</a>
+			<div>
+			<table class="table my-5">
+			  <thead class="thead-dark">
+			    <tr>
+			      <th scope="col">User</th>
+			      <th scope="col">Tickets</th>
+			      <th scope="col">Date</th>
+			      <th scope="col">Time</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    {% for booking in guest_list %}
+			    <tr>
+			        
+			          <td>{{booking.guest.username}}</td>
+			          <td>{{booking.seats}}</td>
+			          <td>{{booking.event.date}}</td>
+			          <td>{{booking.event.time}}</td>
+			          <td></td> 
+			       
+			        </tr>
+			      {%endfor%}   
+			  </tbody>
+			</table>
+			</div>
+		
 	{% endif %}
 	
-	</div>
-</div>
+		
+    
+    <a href=" {% url 'book-event' event.id %}" > 
+    <input type="submit" value="Book Event" class="btn btn-outline-info btn-block"{% if left_ticket <= 0 %} disabled {% endif %}/>
+	</a>	
+ 
+		
 
+</div>
 
 {% endblock content %}

@@ -5,12 +5,12 @@ from .models import Event , Booking
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
-        exclude = ['Organizer']
+        exclude = ['organizer']
 
         widgets = {
-            'Date': forms.DateInput(attrs={'type': 'date'}),
-            'Time': forms.TimeInput(attrs={'type':'time'}),
-            'Seats':forms.NumberInput(attrs={'type': 'number'}),                  
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'time': forms.TimeInput(attrs={'type':'time'}),
+            'seats':forms.NumberInput(attrs={'type': 'number'}),                  
         }
 class BookingForm(forms.ModelForm):
     class Meta:
