@@ -6,9 +6,9 @@ from .models import Event, Booking
 from django.contrib import messages
 from django.http import Http404, JsonResponse
 from django.db.models import Q
-from .permissions import IsOrganizer
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 import datetime
+from django.core.mail import EmailMessage
 def home(request):
     events = Event.objects.all()
     context = {
@@ -72,8 +72,11 @@ def dashboard(request):
     if request.user.is_anonymous:
         return redirect('event-list')
     #events = Event.objects.filter(organizer=request.user)
-    events = request.user.events.all()
+    #events = request.user.events.all()
     current_date = datetime.date.today()
+    events_1 = Event.objects.filter(date__lte=current_date)
+    events = events_1.filter(organizer=request.user)
+
     booking_objs = Booking.objects.filter(guest=request.user)
     context = {
         'booking_objs': booking_objs,
@@ -85,8 +88,8 @@ def dashboard(request):
 
 
 def event_list(request):
-    events = Event.objects.all()
     current_date = datetime.date.today()
+    events = Event.objects.filter(date__gte=current_date)
     query = request.GET.get('search')
     if query:
         events = events.filter(
@@ -118,13 +121,6 @@ def add_event(request):
     if request.user.is_anonymous:
         return redirect('event-list')
     events = Event.objects.all()
-    # flag = False
-    # for event in events:
-    #     if request.user == event.organizer:
-    #         flag = True
-    # if flag == False:
-    #     messages.success(request, "Sorry, You can't add an event !")
-    #     return redirect('dashboard')
     form = EventForm()
     if request.method == "POST":
         form = EventForm(request.POST, request.FILES)
@@ -178,6 +174,8 @@ def book_event(request, event_id):
                 book.event = event
                 book.save()
                 messages.success(request, "Congratulations your booking is confirm")
+                # email = EmailMessage('Subject', 'Body', to=['def@domain.com'])
+                # email.send()
                 return redirect('event-detail',event_id)
         messages.warning(request, "The number of seats you are trying to book is greater than the avalible seate")        
         return redirect('event-detail',event_id) 
