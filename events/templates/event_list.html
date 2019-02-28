@@ -7,7 +7,7 @@
   <div class="input-group mb-3">
     <input class="form-control" placeholder="Search" name="search" value="{{ request.GET.search }}">
     <div class="input-group-append">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search <i class="fas fa-search"></i></button>
+      <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search <i class="fas fa-search"></i></button>
     </div>
   </div>
 </form>
@@ -19,6 +19,8 @@
       <img src="{{event.poster.url}}" class="card-img-top">
       <div class="card-body">
         <h5 class="card-title">{{event.title}}</h5>
+        <p class="card-text">{{event.organizer}}</p>
+        <button class="btn btn-dark {% if request.user.id in follow_list %}text-warning{% endif %}" onclick="follow({{user.id}})"><p id="{{user.id}}"></p> follow </button>
         <p class="card-text">{{event.date}}</p>
         <a href="{{ event.get_absolute_url }}" class="btn btn-dark">More Info</a>
       </div>
@@ -28,5 +30,25 @@
   {% endfor %}
 </div>
 
-
+<script>
+    function follow(id){
+       let button = "#"+id;
+        $.ajax(
+            {
+                type: "GET",
+                url: "/follow/"+id+"/" ,
+                success: function(data){
+                    if(data.follow_btn){
+                        $(user_id).addClass('text-warning');
+                    } else {
+                        $(user_id).removeClass('text-warning');
+                    }
+                },
+                error: function(){
+                    console.log('error');
+                },
+            }
+        );
+    }
+</script>
 {% endblock content %}

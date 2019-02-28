@@ -1,3 +1,43 @@
-.col-form-label {
-	color : white;
+html {
+position: relative;
+    min-height: 100%;
+}
+body {
+    margin-bottom: 60px;
+    color :#404040;
+    font-family: 'Michroma', sans-serif;
+    font-family: 'Poiret One', cursive;
+    font-family: 'Dosis', sans-serif;
+    font-size: 24 px;
+}
+.my_font{
+    font-family: 'Dosis', sans-serif;
+}
+.my_color{
+        color: #009999;
+}
+.home_phrase{
+    font-size:200%;
+}
+.banner{
+    width: 100%;
+}
+.big_text_info{
+    font-size: 30px;
+    color: #009999;
+}
+.jumbotron{
+    background-color: black;
+}
+.messages{
+    position: absolute;
+    margin-top: 67px;
+    z-index: 10;
+    width: 100%;
+}
+
+.footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }

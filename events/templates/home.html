@@ -1,46 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-<header class="masthead text-center text-white">
-  <div class="masthead-content">
+<header class="text-center">
+  <div>
     <div class="container">
-      <h1 class="masthead-heading mb-0">All the events,</h1>
-      <h2 class="masthead-subheading mb-0">You could ever want...</h2>
+      <p class="home_phrase">All the events,You could ever want...</p>
       {% if request.user.is_anonymous %}
-        <a href="{% url 'signup' %}" class="btn btn-primary btn-xl rounded-pill mt-5">Sign up to find events!</a>
+        <a href="{% url 'signup' %}" class="btn btn-outline-info btn-xl mt-5 rounded-pill">Sign up to find events!</a>
       {% else %}
-        <a href="{% url 'event-list' %}" class="btn btn-primary btn-xl rounded-pill mt-5">Find events!</a>
+        <a href="{% url 'event-list' %}" class="btn btn-outline-info btn-xl mt-5 rounded-pill">Find events!</a>
       {% endif %}
     </div>
   </div>
-  <div class="bg-circle-1 bg-circle"></div>
-  <div class="bg-circle-2 bg-circle"></div>
-  <div class="bg-circle-3 bg-circle"></div>
-  <div class="bg-circle-4 bg-circle"></div>
 </header>
 
 
         
  <div class="row">
   {% for event in events %}
-  {% if request.user == event.organizer %}
   <div class="col-12 col-sm-6 col-md-3">
     <div class="card my-5">
       <img src="{{event.poster.url}}" class="card-img-top">
       <div class="card-body">
-        <h5 class="card-title">{{event.Title}}</h5>
-        <p class="card-text">{{event.Date}}</p>
+        <h5 class="my_font card-title">{{event.title}}</h5>
+        <p class="card-text">{{event.date}}</p>
         <a href="{{ event.get_absolute_url }}" class="btn btn-dark">More Info</a>
       </div>
     </div>
   </div>
-  {% endif %}
   {% endfor %}
-  <a href="{% url 'event-list' %}" class="btn btn-dark">View All Events</a>
-
 </div>
-
-
-
 
 {% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-6">
+    <h3 class="my_font">Profile:</h3>
+    <div class="card bg-dark">
+      <div class="card my-5 mx-3">
+        <div class="row card-body">
+          <div class="col-6">
+          <img src="{{user_profile.picture.url}}" class="card-img-top" style="width: 180px">
+          </div>
+          <div class="col-6">
+          <h5 class="card-title big_text_info my_font">{{user_profile.user.username}}</h5>
+          
+          <p class="card-text">Bio : {{user_profile.bio}}</p>
+          <p class="card-text">Date Of Birth : {{user_profile.birth_date}}</p>
+          <p class="card-text">Phone : {{user_profile.phone}}</p>
+          <p class="card-text">Country : {{user_profile.country}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="card-img-overlay"></div>
+    </div>
+    <div class="col-6 my-3">
+      {% if request.user == user_profile.user %}
+        <a href="{{ user_profile.update_url }}" class="btn btn-outline-info btn-block">Edit Profile</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="col-6 my-5">
+    <div class ="big_text_info"> Events:</div>
+      <table class="table my-5">
+        <thead class="table-info">
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Date/Time</th>
+            <th scope="col">Location</th>
+            <th scope="col">More</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in events %}
+            <tr>
+              <td>{{event.title}}</td>
+              <td>{{event.date}} - {{event.time}}</td>
+              <td>{{event.location}}</td>
+              <td><a href="{{event.get_absolute_url }}">More</a></td>
+            </tr>
+          {%endfor%}   
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}

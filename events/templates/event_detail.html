@@ -1,30 +1,43 @@
 {% extends "base.html" %}
-
 {% block content %}
 
 <div class="row justify-content-center">
 	<div class="col-6 my-5">
 		<div class="card bg-dark text-white">
-		  <img src="{{event.poster.url}}" class="card-img">
-		  <div class="card-img-overlay">
-		  </div>
+			<img src="{{event.poster.url}}" class="card-img ">
+			<div class="card-img-overlay"></div>
 		</div>
 	</div>
 	<div class="col-6 my-5">
-		<h1 class="card-title">{{event.title}}</h1>
-	    <p class="card-text">{{event.description}}</p>
-	    <p class="card-text"> When: {{event.date}} - {{event.time}}</p>
-	    <p class="card-text"> Where: {{event.location}}</p>
-	    <p class="card-text">Organized By:{{event.organizer}}</p>
-	    <p class="card-text"> Seats Number: {{event.capacity}}</p>
-	    <p class="card-text"> Tickets Left: {{left_ticket}}</p>
+		<h1 class="card-title big_text_info my_font">{{event.title}}</h1>
+		<p class="card-text">{{event.description}}</p>
+		<table class="table">
+		  <thead>
+		    <tr><th scope="col" class= "table-info font-weight-bold" width="120px;">When</th>
+		    	<th scope="row">{{event.date}} - {{event.time}}</th>
+		    </tr>
+		      <tr><th scope="col" class= "table-info font-weight-bold">Where</th>
+		      	<td>{{event.location}}</td>
+		      </tr>
+		      <tr><th scope="col" class= "table-info font-weight-bold">Organized By</th>
+		      	<td>{{event.organizer}} 
+				
+		      	</td>
+		      </tr>
+		      <tr><th scope="col" class= "table-info font-weight-bold">Seats Number</th>
+		      	<td>{{event.capacity}}</td>
+		      </tr>
+		      <tr><th scope="col" class= "table-info font-weight-bold">Tickets Left</th>
+		      	<td>{{left_ticket}}</td>
+		      </tr>
+		    </tr>
+		  </thead>
+		</table>
 	</div>
-	<div class="col-6 m-5">
-    {% if request.user == event.organizer %}
-			<a href="{{ event.update_url }}" class="btn btn-outline-info btn-block">Update</a>
-			<div>
-			<table class="table my-5">
-			  <thead class="thead-dark">
+</div>
+	{% if request.user == event.organizer %}
+			<table class="table">
+			  <thead class= "table-info">
 			    <tr>
 			      <th scope="col">User</th>
 			      <th scope="col">Tickets</th>
@@ -33,31 +46,34 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    {% for booking in guest_list %}
-			    <tr>
-			        
-			          <td>{{booking.guest.username}}</td>
-			          <td>{{booking.seats}}</td>
-			          <td>{{booking.event.date}}</td>
-			          <td>{{booking.event.time}}</td>
-			          <td></td> 
-			       
+			  	{% for booking in guest_list %}
+			    	<tr>
+				        <td>{{booking.guest.username}}</td>
+				        <td>{{booking.seats}}</td>
+				        <td>{{booking.event.date}}</td>
+				        <td>{{booking.event.time}}</td>
 			        </tr>
-			      {%endfor%}   
+			    {%endfor%}   
 			  </tbody>
 			</table>
-			</div>
-		
+			<div class="row justify-content-center">
+				<div class="mx-3">
+				    <a href="{{ event.update_url }}"  >
+				    	<input type="submit" value="update" class="btn btn-outline-info btn-xl rounded-pill " {% if left_ticket <= 0 %} disabled {% endif %}/>
+				    </a>
+				</div>
+				<div class="mx-3">
+				    <a href="{% url 'book-event' event.id %}"  >
+				    	<input type="submit" value="Book Event" class="btn btn-outline-info btn-xl rounded-pill " {% if left_ticket <= 0 %} disabled {% endif %}/>
+				    </a>
+				</div>
+			</div>		
+	{% else %}
+		<div class="row justify-content-center">
+		    <a href="{% url 'book-event' event.id %}"  >
+		    	<input type="submit" value="Book Event" class="btn btn-outline-info btn-xl rounded-pill " {% if left_ticket <= 0 %} disabled {% endif %}/>
+		    </a>
+		</div>	
 	{% endif %}
-	
-		
-    
-    <a href=" {% url 'book-event' event.id %}" > 
-    <input type="submit" value="Book Event" class="btn btn-outline-info btn-block"{% if left_ticket <= 0 %} disabled {% endif %}/>
-	</a>	
- 
-		
-
-</div>
 
 {% endblock content %}

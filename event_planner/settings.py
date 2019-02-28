@@ -11,10 +11,21 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+}
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=12),
+}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -26,6 +37,7 @@ SECRET_KEY = '$^0io#_@u*v1fjcbods_x*5y^tqx=9b9ypx_zjecko_+19a3-1'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
 
 
 # Application definition
@@ -127,13 +139,12 @@ USE_L10N = True
 USE_TZ = True
 
 
-EMAIL_HOST = 'mail.domain.com'
-EMAIL_HOST_USER = 'abc@domain.com'
-EMAIL_HOST_PASSWORD = 'abcdef'
-DEFAULT_FROM_EMAIL = 'abc@domain.com'
-SERVER_EMAIL = 'abc@domain.com'
-EMAIL_PORT = 25
-EMAIL_USE_TLS = False
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'event5345345@gmail.com'
+EMAIL_HOST_PASSWORD = 'Event@5345345'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/

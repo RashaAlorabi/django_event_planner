@@ -1,19 +1,21 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
+
 <header class="text-center text-white">
   <div class="container row justify-content-center ">
         <div class="jumbotron col-8 my-5 bg-dark text-white">
-          <h2 class="masthead-subheading mb-0">Sign Up</h2>
-          <form action="{% url 'signup' %}" method="POST" enctype="multipart/form-data">
+          <h2 class="masthead-subheading mb-0">Edit Profile</h2>
+          <form action="{{ user_profile.update_url }}" method="POST">
             {% csrf_token %}
             {{form|crispy}}
+            {{siginup_form|crispy}}
             {{profile_form|crispy}}
             <div class="justify-content-center">
-              <input class = "btn btn-outline-info btn-xl rounded-pill" type="submit" value="Sign Up">
+              <input class = "btn btn-outline-info btn-xl rounded-pill" type="submit" value="Update Profile">
             </div>
           </form>
-      </div>
+    </div>
   </div>
 </header>
 {% endblock %}

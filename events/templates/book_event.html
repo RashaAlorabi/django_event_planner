@@ -3,13 +3,17 @@
 
 
 {% block content %}
-<div class="row justify-content-center">
-	<div class="jumbotron col-8 my-5">
+<header class="text-center text-white">
+<div class="container row justify-content-center ">
+	<div class="jumbotron col-8 my-5 bg-dark text-white">
 		<form action="{% url 'book-event' event.id %}" method="POST" enctype="multipart/form-data">
 			{% csrf_token %}
 			{{ form | crispy }}
-			<input type="submit" value="Book Event" class="btn btn-outline-success">
+			<div class="justify-content-center">
+              <input class = "btn btn-outline-info btn-xl rounded-pill" type="submit" value="Book Event">
+            </div>
 		</form>
 	</div>
 </div>
+</header>
 {% endblock content %}

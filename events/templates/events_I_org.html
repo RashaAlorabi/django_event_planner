@@ -36,37 +36,7 @@
         </tbody>
       </table>
   </div>
-  <div class="row">
-    <div class ="big_text_info"> Events I Attended:</div>
-       <table class="table my-5">
-        <thead class="table-info">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Date</th>
-            <th scope="col">Time</th>
-            <th scope="col">Location</th>
-            <th scope="col">Tickets</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for book_item in booking_objs %}
-          <tr>
-            <th scope="row">{{book_item.event.id}}</th>
-            <td>{{book_item.event.title}}</td>
-            <td>{{book_item.event.date}}</td>
-            <td>{{book_item.event.time}}</td>
-            <td>{{book_item.event.location}}</td>
-            <td>{{book_item.seats}}</td>
-          </tr>
-          {%endfor%}   
-        </tbody>
-      </table>
-    </div>
-    <div class="row justify-content-center">
-      <a href="{% url 'add-event' %}" class="btn btn-outline-info btn-xl mt-5 rounded-pill " >Create Event</a>
-    </div>
-</div>
+
 {% endblock content %}
 
 
